@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-	.controller('MapCtrl', function ($scope, $ionicLoading) {
+	.controller('MapController', function ($scope, $ionicLoading) {
 		$scope.mapCreated = function (map) {
 			$scope.map = map;
 		};
@@ -24,4 +24,11 @@ angular.module('starter.controllers', [])
 				alert('Unable to get location: ' + error.message);
 			});
 		};
-	});
+	})
+
+	.controller('MenuController', function($scope, $ionicSideMenuDelegate) {
+		//disable left drag to open menu
+		$ionicSideMenuDelegate.canDragContent(false);
+	})
+;
+

@@ -33,7 +33,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
       url: "/search",
       views: {
         'menuContent' :{
-          templateUrl: "templates/search.html"
+          templateUrl: "templates/search.html",
+					controller: "MenuController"
         }
       }
     })
@@ -43,7 +44,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
       views: {
         'menuContent' :{
           templateUrl: "templates/browse.html",
-					controller: "MapCtrl"
+					controller: "MapController"
         }
       }
     });
