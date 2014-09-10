@@ -26,7 +26,7 @@ angular.module('starter.controllers', [])
 				console.log('Got pos', pos);
 				$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 				var marker = new google.maps.Marker({
-					position: $scope.map.getCenter(),
+					position: new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
 					map: $scope.map,
 					title: 'Click to zoom',
 					animation: google.maps.Animation.BOUNCE,
