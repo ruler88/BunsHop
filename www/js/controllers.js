@@ -1,15 +1,27 @@
 angular.module('starter.controllers', [])
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
+	.controller('MapCtrl', function ($scope, $ionicLoading) {
+		$scope.mapCreated = function (map) {
+			$scope.map = map;
+		};
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+		$scope.centerOnMe = function () {
+			console.log("Centering");
+			if (!$scope.map) {
+				return;
+			}
+
+			$scope.loading = $ionicLoading.show({
+				content: 'Getting current location...',
+				showBackdrop: false
+			});
+
+			navigator.geolocation.getCurrentPosition(function (pos) {
+				console.log('Got pos', pos);
+				$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+				$scope.loading.hide();
+			}, function (error) {
+				alert('Unable to get location: ' + error.message);
+			});
+		};
+	});
