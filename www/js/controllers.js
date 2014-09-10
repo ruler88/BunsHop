@@ -3,8 +3,8 @@ angular.module('starter.controllers', [])
 	.controller('MapController', function ($scope, $ionicLoading) {
 
 		var bunsIcons = {
-			kai: 'img/kai_buns.png',
-			sarah: 'img/sarah_buns.png'
+			kai: 'img/kai_buns.gif',
+			sarah: 'img/sarah_buns.gif'
 		};
 
 		$scope.mapCreated = function (map) {
@@ -30,7 +30,7 @@ angular.module('starter.controllers', [])
 					map: $scope.map,
 					title: 'Click to zoom',
 					animation: google.maps.Animation.BOUNCE,
-					icon: bunsIcons.kai
+					icon: bunsIcons.sarah
 				});
 
 				$scope.loading.hide();
