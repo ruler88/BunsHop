@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('map.controllers', [])
 
 	.controller('MapController', function ($scope, $ionicLoading) {
 
