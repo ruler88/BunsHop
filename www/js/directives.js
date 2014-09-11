@@ -25,11 +25,8 @@ angular.module('map.directives', [])
 						return false;
 					});
 
-
 					navigator.geolocation.getCurrentPosition(function (pos) {
 						$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-					}, function (error) {
-						alert('Unable to get location: ' + error.message);
 					});
 				}
 

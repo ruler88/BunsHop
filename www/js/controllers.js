@@ -15,8 +15,5 @@ angular.module('map.controllers', [])
 		//disable left drag to open menu
 		$ionicSideMenuDelegate.canDragContent(false);
 	})
-
-
-
 ;
 
