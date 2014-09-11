@@ -9,6 +9,10 @@ angular.module('map.controllers', [])
 		$scope.centerOnMe = function () {
 			MapService.centerOnMe($scope, $ionicLoading);
 		};
+
+		$scope.watchMe = function() {
+			MapService.watchMe($scope);
+		};
 	})
 
 	.controller('MenuController', function($scope, $ionicSideMenuDelegate) {
