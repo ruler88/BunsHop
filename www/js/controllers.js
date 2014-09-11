@@ -13,6 +13,10 @@ angular.module('map.controllers', [])
 		$scope.watchMe = function() {
 			MapService.watchMe($scope);
 		};
+
+		$scope.stopWatch = function() {
+			MapService.stopWatch();
+		}
 	})
 
 	.controller('MenuController', function($scope, $ionicSideMenuDelegate) {

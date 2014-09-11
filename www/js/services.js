@@ -4,6 +4,7 @@ var bunsIcons = {
 	sarah: 'img/sarah_buns.gif'
 };
 var marker;
+var watchID;
 
 angular.module('map.services', [])
 
@@ -45,9 +46,11 @@ angular.module('map.services', [])
 
 
 		this.watchMe = function($scope) {
-			function onSuccess(position) {
-				var notify = 'Latitude: '  + position.coords.latitude  + "\n" +
-					'Longitude: ' + position.coords.longitude;
+			function onSuccess(pos) {
+				updateMarkerLocation($scope, new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+
+				var notify = 'Latitude: '  + pos.coords.latitude  + "\n" +
+					'Longitude: ' + pos.coords.longitude;
 				console.log(notify);
 			}
 
@@ -59,6 +62,13 @@ angular.module('map.services', [])
 			}
 
 			// Options: throw an error if no update is received every 30 seconds.
-			navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+			watchId = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+		}
+
+		this.stopWatch = function() {
+			if (!watchId) {
+				navigator.geolocation.clearWatch(watchID);
+				console.log("Stopped following");
+			}
 		}
 	});
