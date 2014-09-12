@@ -42,7 +42,8 @@ angular.module('map.services', [])
 			}, function (error) {
 				alert('Unable to get location: ' + error.message);
 				$ionicLoading.hide();
-			});
+			},
+			{ timeout: 10000 });
 		}
 
 
