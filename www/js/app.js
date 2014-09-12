@@ -26,15 +26,15 @@ angular.module('starter', ['ionic', 'map.controllers', 'map.directives', 'map.se
     .state('app', {
       url: "/app",
       abstract: true,
-      templateUrl: "templates/menu.html"
+      templateUrl: "templates/menu.html",
+			controller: "MenuController"
     })
 
     .state('app.search', {
       url: "/search",
       views: {
         'menuContent' :{
-          templateUrl: "templates/search.html",
-					controller: "MenuController"
+          templateUrl: "templates/search.html"
         }
       }
     })
