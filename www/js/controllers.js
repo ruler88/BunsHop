@@ -23,5 +23,24 @@ angular.module('map.controllers', [])
 		//disable left drag to open menu
 		$ionicSideMenuDelegate.canDragContent(false);
 	})
+
+	.controller('GCMController', function($scope) {
+		$scope.notificationRegister = function() {
+			console.log("OH NOES");
+
+			successHandler = function(result) {
+				alert('Callback Success! Result = '+result);
+			};
+
+			errorHandler = function(error) {
+				//alert(error);
+			};
+
+			var pushNotification = window.plugins.pushNotification;
+			pushNotification.register(successHandler, errorHandler,{"senderID":"errorHandler","ecb":"app.onNotificationGCM"});
+
+
+		}
+	})
 ;
 
