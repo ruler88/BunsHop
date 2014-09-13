@@ -4,7 +4,6 @@ var bunsIcons = {
 	sarah: 'img/sarah_buns.gif'
 };
 var marker;
-var watchID;
 
 angular.module('map.services', [])
 
@@ -64,12 +63,12 @@ angular.module('map.services', [])
 			}
 
 			// Options: throw an error if no update is received every 30 seconds.
-			watchId = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
+			$scope.watchId = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
 		}
 
 		this.stopWatch = function() {
-			if (!watchId) {
-				navigator.geolocation.clearWatch(watchID);
+			if (!$scope.watchId) {
+				navigator.geolocation.clearWatch($scope.watchId);
 				console.log("Stopped following");
 			}
 		}
