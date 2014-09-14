@@ -1,6 +1,6 @@
 angular.module('map.controllers', [])
 
-	.controller('MapController', function ($scope, $ionicLoading, MapService) {
+	.controller('MapController', function ($scope, $ionicLoading, MapService, AuthService) {
 
 		$scope.mapCreated = function (map) {
 			$scope.map = map;
@@ -16,12 +16,15 @@ angular.module('map.controllers', [])
 
 		$scope.stopWatch = function() {
 			MapService.stopWatch();
-		}
+		};
+
+		AuthService.getName($scope);
 	})
 
-	.controller('MenuController', function($scope, $ionicSideMenuDelegate) {
+	.controller('MenuController', function($scope, $ionicSideMenuDelegate, AuthService) {
 		//disable left drag to open menu
 		$ionicSideMenuDelegate.canDragContent(false);
+		AuthService.getName($scope);
 	})
 
 	.controller('GCMController', function($scope) {
@@ -48,6 +51,8 @@ angular.module('map.controllers', [])
 		$scope.getName = function() {
 			return AuthService.getName($scope);
 		};
+
+		$scope.getName();
 	})
 ;
 
