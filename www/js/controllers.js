@@ -41,39 +41,10 @@ angular.module('map.controllers', [])
 		}
 	})
 
-	.controller('GoogleAuthController', function($scope) {
+	.controller('GoogleAuthController', function($scope, AuthService) {
 
 		$scope.login = function() {
-			var clientId = '420168715514-4jcusmc7mftekt5uhtv8vr5nl3s1cc44.apps.googleusercontent.com';
-			var apiKey = 'AIzaSyBXnO6zhNaEekfuJz4tbICKYDuZ3yJmNEs';
-			var scopes = 'https://www.googleapis.com/auth/userinfo.email';
-
-			function auth() {
-				var config = {
-					'client_id': clientId,
-					'scope': scopes
-				};
-				gapi.auth.authorize(config, function() {
-					var access_token = gapi.auth.getToken().access_token;
-					assignUser(access_token);
-				});
-			}
-
-			auth();
-
-			function assignUser(access_token) {
-				console.log(access_token);
-				$.ajax({
-					url: 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + access_token,
-					data: null,
-					success: function(resp) {
-						user    =   resp;
-						console.log(user);
-					},
-					dataType: "jsonp"
-				});
-				console.log('complete login, welcome ');
-			}
+			AuthService.login();
 		}
 
 	})
