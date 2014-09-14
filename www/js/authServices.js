@@ -21,6 +21,7 @@ angular.module('auth.services', [])
 		};
 
 		this.getName = function($scope) {
+			alert("i was called!");
 			$scope.name = window.localStorage.getItem("first_name");
 			return window.localStorage.getItem("first_name");
 		};
