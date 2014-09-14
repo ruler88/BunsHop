@@ -2,15 +2,17 @@
 angular.module('auth.services', [])
 
 	.service('AuthService', function() {
+		var authService = this;
+
 		this.login = function($scope) {
 			facebookConnectPlugin.login( ["public_profile,email"],
 				function (response) {
 					//login success
 					facebookConnectPlugin.api('/me', ["email"],
 						function(response) {
-							$scope.my_email = response.email;
-							$scope.my_name = response.first_name;
-							//todo: put these in localstorage
+							window.localStorage.setItem("email", response.email);
+							window.localStorage.setItem("first_name", response.first_name);
+							authService.getName($scope);
 					});
 				},
 				function (response) {
@@ -18,5 +20,9 @@ angular.module('auth.services', [])
 				});
 		};
 
+		this.getName = function($scope) {
+			$scope.name = window.localStorage.getItem("first_name");
+			return window.localStorage.getItem("first_name");
+		};
 	});
 

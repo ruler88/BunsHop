@@ -43,7 +43,11 @@ angular.module('map.controllers', [])
 
 		$scope.login = function() {
 			AuthService.login($scope);
-		}
+		};
+
+		$scope.getName = function() {
+			return AuthService.getName($scope);
+		};
 	})
 ;
 
