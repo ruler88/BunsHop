@@ -26,10 +26,8 @@ angular.module('map.controllers', [])
 
 	.controller('GCMController', function($scope) {
 		$scope.notificationRegister = function() {
-			console.log("OH NOES");
-
 			successHandler = function(result) {
-				alert('Callback Success! Result = '+result);
+				console.log('Callback Success! Result = '+result);
 			};
 
 			errorHandler = function(error) {
