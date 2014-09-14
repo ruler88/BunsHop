@@ -2,6 +2,10 @@
 angular.module('auth.services', [])
 
 	.service('AuthService', function() {
+		var bunsIcons = {
+			Kai: 'img/kai_buns.gif',
+			Sarah: 'img/sarah_buns.gif'
+		};
 		var authService = this;
 
 		this.login = function($scope) {
@@ -10,8 +14,8 @@ angular.module('auth.services', [])
 					//login success
 					facebookConnectPlugin.api('/me', ["email"],
 						function(response) {
-							window.localStorage.setItem("email", response.email);
-							window.localStorage.setItem("first_name", response.first_name);
+							storeUser($scope, response);
+
 							authService.getName($scope);
 					});
 				},
@@ -21,9 +25,18 @@ angular.module('auth.services', [])
 		};
 
 		this.getName = function($scope) {
-			$scope.name = window.localStorage.getItem("first_name");
-			$scope.email = window.localStorage.getItem("email");
 			return window.localStorage.getItem("first_name");
 		};
+
+		this.storeUser = function($scope, response) {
+			window.localStorage.setItem("email", response.email);
+			window.localStorage.setItem("first_name", response.first_name);
+			window.localStorage.setItem("img_path", bunsIcons[response.first_name]);
+
+
+			$scope.name = window.localStorage.getItem("first_name");
+			$scope.email = window.localStorage.getItem("email");
+
+		}
 	});
 

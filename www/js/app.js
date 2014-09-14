@@ -30,8 +30,8 @@ angular.module('starter', ['ionic', 'map.controllers', 'map.directives', 'map.se
 			controller: "MenuController"
     })
 
-    .state('app.search', {
-      url: "/search",
+    .state('app.login', {
+      url: "/login",
       views: {
         'menuContent' :{
           templateUrl: "templates/logIn.html",
@@ -40,8 +40,8 @@ angular.module('starter', ['ionic', 'map.controllers', 'map.directives', 'map.se
       }
     })
 
-    .state('app.browse', {
-      url: "/browse",
+    .state('app.mapView', {
+      url: "/map",
       views: {
         'menuContent' :{
           templateUrl: "templates/mapView.html",
@@ -50,6 +50,6 @@ angular.module('starter', ['ionic', 'map.controllers', 'map.directives', 'map.se
       }
     });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/search');
+  $urlRouterProvider.otherwise('/app/login');
 });
 

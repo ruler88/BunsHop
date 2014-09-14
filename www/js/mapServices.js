@@ -1,8 +1,4 @@
 
-var bunsIcons = {
-	kai: 'img/kai_buns.gif',
-	sarah: 'img/sarah_buns.gif'
-};
 var marker;
 
 angular.module('map.services', [])
@@ -15,7 +11,7 @@ angular.module('map.services', [])
 					map: $scope.map,
 					title: 'Click to zoom',
 					animation: google.maps.Animation.BOUNCE,
-					icon: bunsIcons.sarah
+					icon: //TODO: change
 				});
 			}
 			marker.setPosition(googPosition);
