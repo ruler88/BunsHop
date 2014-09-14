@@ -39,12 +39,11 @@ angular.module('map.controllers', [])
 		}
 	})
 
-	.controller('GoogleAuthController', function($scope, AuthService) {
+	.controller('FBAuthController', function($scope, AuthService) {
 
 		$scope.login = function() {
-			AuthService.login();
+			AuthService.login($scope);
 		}
-
 	})
 ;
 
