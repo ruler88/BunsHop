@@ -11,7 +11,7 @@ angular.module('map.services', [])
 					map: $scope.map,
 					title: 'Click to zoom',
 					animation: google.maps.Animation.BOUNCE,
-					icon: //TODO: change
+					icon: window.localStorage.getItem("img_path")
 				});
 			}
 			marker.setPosition(googPosition);
