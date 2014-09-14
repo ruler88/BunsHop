@@ -15,7 +15,7 @@ angular.module('map.services', [])
 				});
 			}
 			marker.setPosition(googPosition);
-		}
+		};
 
 		this.centerOnMe = function ($scope, $ionicLoading) {
 			console.log("Centering");
@@ -39,7 +39,7 @@ angular.module('map.services', [])
 				$ionicLoading.hide();
 			},
 			{ timeout: 10000 });
-		}
+		};
 
 
 		this.watchMe = function($scope) {
@@ -60,12 +60,12 @@ angular.module('map.services', [])
 
 			// Options: throw an error if no update is received every 30 seconds.
 			$scope.watchId = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
-		}
+		};
 
 		this.stopWatch = function() {
 			if (!$scope.watchId) {
 				navigator.geolocation.clearWatch($scope.watchId);
 				console.log("Stopped following");
 			}
-		}
+		};
 	});

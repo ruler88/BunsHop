@@ -10,7 +10,7 @@ function onDeviceReady() {
 
 		var pushNotification = window.plugins.pushNotification;
 		pushNotification.register(successHandler, errorHandler, {"senderID": "420168715514", "ecb": "onNotificationGCM"});
-	}
+	};
 
 	notificationRegister();
 }
