@@ -34,7 +34,7 @@ angular.module('starter', ['ionic', 'map.controllers', 'map.directives', 'map.se
       url: "/search",
       views: {
         'menuContent' :{
-          templateUrl: "templates/search.html",
+          templateUrl: "templates/logIn.html",
 					controller: "FBAuthController"
         }
       }
