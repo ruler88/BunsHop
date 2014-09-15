@@ -11,7 +11,6 @@ angular.module('auth.services', [])
 					facebookConnectPlugin.api('/me', ["email"],
 						function(response) {
 							authService.storeUser($scope, response);
-							authService.getName($scope);
 					});
 				},
 				function (response) {
@@ -19,8 +18,29 @@ angular.module('auth.services', [])
 				});
 		};
 
+		this.logout = function($scope) {
+			facebookConnectPlugin.logout(
+				function(response) {
+					console.log("logout: " + response);
+					window.localStorage.removeItem("first_name");
+					window.localStorage.removeItem("email");
+					window.localStorage.removeItem("img_path");
+
+					delete $scope.first_name;
+					delete $scope.email;
+					delete $scope.img_path;
+				});
+		};
+
+		this.setUserScope = function($scope) {
+			$scope.first_name = window.localStorage.getItem("first_name");
+			$scope.email = window.localStorage.getItem("email");
+			$scope.img_path = window.localStorage.getItem("img_path");
+		};
+
 		this.getName = function($scope) {
-			return window.localStorage.getItem("first_name");
+			authService.setUserScope($scope);
+			return $scope.first_name;
 		};
 
 		this.storeUser = function($scope, response) {
@@ -29,8 +49,7 @@ angular.module('auth.services', [])
 			window.localStorage.setItem("first_name", response.first_name);
 			window.localStorage.setItem("img_path", bunsIcons[response.first_name]);
 
-			$scope.name = window.localStorage.getItem("first_name");
-			$scope.email = window.localStorage.getItem("email");
-		}
+			authService.setUserScope($scope);
+		};
 	});
 
