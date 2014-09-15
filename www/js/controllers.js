@@ -38,6 +38,7 @@ angular.module('map.controllers', [])
 		};
 
 		$scope.setUserScope();
+		$scope.today = new Date();
 	})
 ;
 
