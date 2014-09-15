@@ -10,9 +10,8 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
-		<div ng-show="getName()" class="item item-avatar">
+		<div ng-show="isLoggedIn" class="item item-avatar">
 			<img ng-src="{{img_path}}">
-			<p>{{img_path}}</p>
 			<h2>{{first_name}}</h2>
 			<p>November 05, 1955</p>
 		</div>

@@ -29,12 +29,13 @@ angular.module('map.controllers', [])
 		}
 	})
 
-	.controller('FBAuthController', function($scope, AuthService) {
-
-		$scope.login = function() { AuthService.login($scope) };
-		$scope.logout = function() { AuthService.logout($scope) };
+	.controller('FBAuthController', function($scope, $ionicLoading, AuthService) {
+		$scope.login = function() { AuthService.login($scope, $ionicLoading) };
+		$scope.logout = function() { AuthService.logout($scope, $ionicLoading) };
 		$scope.getName = function() { return AuthService.getName($scope) };
-		$scope.setUserScope = function() { AuthService.setUserScope($scope) };
+		$scope.setUserScope = function() {
+			AuthService.setUserScope($scope);
+		};
 
 		$scope.setUserScope();
 	})

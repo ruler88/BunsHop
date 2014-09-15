@@ -9,21 +9,31 @@ angular.module('auth.services', [])
 			Unknown: 'img/unknown.png'
 		};
 
-		this.login = function($scope) {
+		this.login = function($scope, $ionicLoading) {
+			$ionicLoading.show({
+				template: 'Logging In'
+			});
+
 			facebookConnectPlugin.login( ["public_profile,email"],
 				function (response) {
 					//login success
 					facebookConnectPlugin.api('/me', ["email"],
 						function(response) {
 							authService.storeUser($scope, response);
+							$scope.isLoggedIn = true;
+							$ionicLoading.hide();
 					});
 				},
 				function (response) {
+					$ionicLoading.hide();
 					alert("fail to log in fb " + response);
 				});
 		};
 
-		this.logout = function($scope) {
+		this.logout = function($scope, $ionicLoading) {
+			$ionicLoading.show({
+				template: 'Good Bye!'
+			});
 			facebookConnectPlugin.logout(
 				function(response) {
 					console.log("logout: " + response);
@@ -34,6 +44,9 @@ angular.module('auth.services', [])
 					delete $scope.first_name;
 					delete $scope.email;
 					delete $scope.img_path;
+
+					$scope.isLoggedIn = false;
+					$ionicLoading.hide();
 				});
 		};
 
@@ -41,6 +54,7 @@ angular.module('auth.services', [])
 			$scope.first_name = window.localStorage.getItem("first_name");
 			$scope.email = window.localStorage.getItem("email");
 			$scope.img_path = window.localStorage.getItem("img_path");
+			$scope.isLoggedIn = (typeof $scope.first_name !== 'undefined');
 		};
 
 		this.getName = function($scope) {

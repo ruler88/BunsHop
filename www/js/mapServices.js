@@ -24,7 +24,7 @@ angular.module('map.services', [])
 			}
 
 			$scope.loading = $ionicLoading.show({
-				content: 'Getting current location...',
+				template: 'Getting current location...',
 				showBackdrop: false
 			});
 
