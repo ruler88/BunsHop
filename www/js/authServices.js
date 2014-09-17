@@ -9,7 +9,7 @@ angular.module('auth.services', [])
 			Unknown: 'img/unknown.png'
 		};
 
-		this.login = function($scope, $ionicLoading) {
+		this.login = function($ionicLoading, $rootScope) {
 			$ionicLoading.show({
 				template: 'Logging In'
 			});
@@ -19,8 +19,8 @@ angular.module('auth.services', [])
 					//login success
 					facebookConnectPlugin.api('/me', ["email"],
 						function(response) {
-							authService.storeUser($scope, response);
-							$scope.isLoggedIn = true;
+							authService.storeUser(response, $rootScope);
+							$rootScope.isLoggedIn = true;
 							$ionicLoading.hide();
 					});
 				},
@@ -30,7 +30,7 @@ angular.module('auth.services', [])
 				});
 		};
 
-		this.logout = function($scope, $ionicLoading) {
+		this.logout = function($ionicLoading, $rootScope) {
 			$ionicLoading.show({
 				template: 'Good Bye!'
 			});
@@ -41,33 +41,28 @@ angular.module('auth.services', [])
 					window.localStorage.removeItem("email");
 					window.localStorage.removeItem("img_path");
 
-					delete $scope.first_name;
-					delete $scope.email;
-					delete $scope.img_path;
+					delete $rootScope.first_name;
+					delete $rootScope.email;
+					delete $rootScope.img_path;
 
-					$scope.isLoggedIn = false;
+					$rootScope.isLoggedIn = false;
 					$ionicLoading.hide();
 				});
 		};
 
-		this.setUserScope = function($scope) {
-			$scope.first_name = window.localStorage.getItem("first_name");
-			$scope.email = window.localStorage.getItem("email");
-			$scope.img_path = window.localStorage.getItem("img_path");
-			$scope.isLoggedIn = (typeof $scope.first_name !== 'undefined');
+		this.setUserScope = function($rootScope) {
+			$rootScope.first_name = window.localStorage.getItem("first_name");
+			$rootScope.email = window.localStorage.getItem("email");
+			$rootScope.img_path = window.localStorage.getItem("img_path");
+			$rootScope.isLoggedIn = (typeof $rootScope.first_name !== 'undefined');
 		};
 
-		this.getName = function($scope) {
-			authService.setUserScope($scope);
-			return $scope.first_name;
-		};
-
-		this.storeUser = function($scope, response) {
+		this.storeUser = function(response, $rootScope) {
 			window.localStorage.setItem("email", response.email);
 			window.localStorage.setItem("first_name", response.first_name);
 			window.localStorage.setItem("img_path", bunsIcons[response.first_name]);
 
-			authService.setUserScope($scope);
+			authService.setUserScope($rootScope);
 		};
 	});
 

@@ -1,17 +1,17 @@
 angular.module('map.controllers', [])
 
-	.controller('MapController', function ($scope, $ionicLoading, MapService, AuthService) {
+	.controller('MapController', function ($scope, $ionicLoading, $rootScope, MapService, AuthService) {
 		$scope.mapCreated = function (map) { $scope.map = map };
 		$scope.centerOnMe = function () { MapService.centerOnMe($scope, $ionicLoading) };
 		$scope.watchMe = function() { MapService.watchMe($scope) };
 		$scope.stopWatch = function() { MapService.stopWatch() };
 
-		AuthService.setUserScope($scope);
+		AuthService.setUserScope($rootScope);
 	})
 
-	.controller('MenuController', function($scope, $ionicSideMenuDelegate, AuthService) {
+	.controller('MenuController', function($rootScope, $ionicSideMenuDelegate, AuthService) {
 		$ionicSideMenuDelegate.canDragContent(false);
-		AuthService.setUserScope($scope);
+		AuthService.setUserScope($rootScope);
 	})
 
 	.controller('GCMController', function($scope) {
@@ -29,13 +29,10 @@ angular.module('map.controllers', [])
 		}
 	})
 
-	.controller('FBAuthController', function($scope, $ionicLoading, AuthService) {
-		$scope.login = function() { AuthService.login($scope, $ionicLoading) };
-		$scope.logout = function() { AuthService.logout($scope, $ionicLoading) };
-		$scope.getName = function() { return AuthService.getName($scope) };
-		$scope.setUserScope = function() {
-			AuthService.setUserScope($scope);
-		};
+	.controller('FBAuthController', function($scope, $ionicLoading, AuthService, $rootScope) {
+		$scope.login = function() { AuthService.login($ionicLoading, $rootScope) };
+		$scope.logout = function() { AuthService.logout($ionicLoading, $rootScope) };
+		$scope.setUserScope = function() {	AuthService.setUserScope($rootScope);	};
 
 		$scope.setUserScope();
 		$scope.today = new Date();
