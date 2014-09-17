@@ -10,14 +10,13 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header">
+		<button ng-click="login()" class="button icon-left button-positive ion-social-facebook fb_icon">Log In</button>
+		<button ng-click="logout()" class="button icon-left button-assertive ion-social-facebook fb_icon">Log Out</button>
+
 		<div ng-show="isLoggedIn" class="item item-avatar">
 			<img ng-src="{{img_path}}">
 			<h2>{{first_name}}</h2>
 			<p>{{today | date:'longDate'}}</p>
 		</div>
-
-		<button ng-click="login()" class="button icon-left button-positive ion-social-facebook fb_icon">Log In</button>
-		<button ng-click="logout()" class="button icon-left button-assertive ion-social-facebook fb_icon">Log Out</button>
-
 	</ion-content>
 </ion-view>
