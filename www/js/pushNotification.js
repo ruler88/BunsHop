@@ -2,7 +2,7 @@ function onDeviceReady() {
 
 	var notificationRegister = function () {
 		successHandler = function (result) {
-			//alert('Callback Success! Result = ' + result);
+			console.log('Callback Success! Result = ' + result);
 		};
 		errorHandler = function (error) {
 			//alert(error);
@@ -25,7 +25,9 @@ function onNotificationGCM(e) {
 
 		case 'message':
 			// this is the actual push notification. its format depends on the data model from the push server
-			alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt);
+			// alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt);
+			alert( JSON.stringify(e) );
+			console.log( JSON.stringify(e) );
 			break;
 
 		case 'error':
