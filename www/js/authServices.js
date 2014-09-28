@@ -9,7 +9,7 @@ angular.module('auth.services', [])
 			Unknown: 'img/unknown.png'
 		};
 
-		this.login = function($ionicLoading, $rootScope) {
+		this.login = function($ionicLoading, $rootScope, $http) {
 			$ionicLoading.show({
 				template: 'Logging In'
 			});
@@ -19,7 +19,7 @@ angular.module('auth.services', [])
 					//login success
 					facebookConnectPlugin.api('/me', ["email"],
 						function(response) {
-							authService.storeUser(response, $rootScope);
+							authService.storeUser(response, $rootScope, $http);
 							$rootScope.isLoggedIn = true;
 							$ionicLoading.hide();
 					});
@@ -50,19 +50,25 @@ angular.module('auth.services', [])
 				});
 		};
 
-		this.setUserScope = function($rootScope) {
+		this.setUserScope = function($rootScope, $http) {
 			$rootScope.first_name = window.localStorage.getItem("first_name");
 			$rootScope.email = window.localStorage.getItem("email");
 			$rootScope.img_path = window.localStorage.getItem("img_path");
 			$rootScope.isLoggedIn = (typeof $rootScope.first_name !== 'undefined');
+			$http({
+				url: comServer,
+				method: "GET",
+				params: {first_name: $rootScope.first_name,
+								regid: window.localStorage.getItem("regid")}
+			});
 		};
 
-		this.storeUser = function(response, $rootScope) {
+		this.storeUser = function(response, $rootScope, $http) {
 			window.localStorage.setItem("email", response.email);
 			window.localStorage.setItem("first_name", response.first_name);
 			window.localStorage.setItem("img_path", bunsIcons[response.first_name]);
 
-			authService.setUserScope($rootScope);
+			authService.setUserScope($rootScope, $http);
 		};
 	});
 

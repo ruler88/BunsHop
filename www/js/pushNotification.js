@@ -19,6 +19,7 @@ function onNotificationGCM(e) {
 	switch (e.event) {
 		case 'registered':
 			if (e.regid.length > 0) {
+				window.localStorage.setItem("regid", e.regid);
 				console.log("Regid " + e.regid);
 			}
 			break;

@@ -6,12 +6,12 @@ angular.module('map.controllers', [])
 		$scope.watchMe = function() { MapService.watchMe($scope) };
 		$scope.stopWatch = function() { MapService.stopWatch() };
 
-		AuthService.setUserScope($rootScope);
+		AuthService.setUserScope($rootScope, $http);
 	})
 
-	.controller('MenuController', function($rootScope, $ionicSideMenuDelegate, AuthService) {
+	.controller('MenuController', function($rootScope, $ionicSideMenuDelegate, AuthService, $http) {
 		$ionicSideMenuDelegate.canDragContent(false);
-		AuthService.setUserScope($rootScope);
+		AuthService.setUserScope($rootScope, $http);
 	})
 
 	.controller('GCMController', function($scope) {
@@ -29,10 +29,10 @@ angular.module('map.controllers', [])
 		}
 	})
 
-	.controller('FBAuthController', function($scope, $ionicLoading, AuthService, $rootScope) {
-		$scope.login = function() { AuthService.login($ionicLoading, $rootScope) };
+	.controller('FBAuthController', function($scope, $ionicLoading, AuthService, $rootScope, $http) {
+		$scope.login = function() { AuthService.login($ionicLoading, $rootScope, $http) };
 		$scope.logout = function() { AuthService.logout($ionicLoading, $rootScope) };
-		$scope.setUserScope = function() {	AuthService.setUserScope($rootScope);	};
+		$scope.setUserScope = function() {	AuthService.setUserScope($rootScope, $http);	};
 
 		$scope.setUserScope();
 		$scope.today = new Date();

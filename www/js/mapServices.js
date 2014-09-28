@@ -1,4 +1,3 @@
-var comServer = 'http://buns-hop-server.herokuapp.com/';
 var marker;
 
 angular.module('map.services', [])
@@ -31,7 +30,8 @@ angular.module('map.services', [])
 //			$http({
 //				url: comServer,
 //				method: "GET",
-//				params: {test: 'A'}
+//				params: {first_name: $scope.first_name,
+// 								test: 'A'}
 //			});
 
 			navigator.geolocation.getCurrentPosition(function (pos) {
