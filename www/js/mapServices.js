@@ -1,4 +1,4 @@
-
+var comServer = 'http://buns-hop-server.herokuapp.com/';
 var marker;
 
 angular.module('map.services', [])
@@ -17,7 +17,7 @@ angular.module('map.services', [])
 			marker.setPosition(googPosition);
 		};
 
-		this.centerOnMe = function ($scope, $ionicLoading) {
+		this.centerOnMe = function ($scope, $ionicLoading, $http) {
 			console.log("Centering");
 			if (!$scope.map) {
 				return;
@@ -27,6 +27,12 @@ angular.module('map.services', [])
 				template: 'Getting current location...',
 				showBackdrop: false
 			});
+
+//			$http({
+//				url: comServer,
+//				method: "GET",
+//				params: {test: 'A'}
+//			});
 
 			navigator.geolocation.getCurrentPosition(function (pos) {
 				console.log('Got pos', pos);

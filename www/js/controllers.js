@@ -1,8 +1,8 @@
 angular.module('map.controllers', [])
 
-	.controller('MapController', function ($scope, $ionicLoading, $rootScope, MapService, AuthService) {
+	.controller('MapController', function ($scope, $ionicLoading, $rootScope, $http, MapService, AuthService) {
 		$scope.mapCreated = function (map) { $scope.map = map };
-		$scope.centerOnMe = function () { MapService.centerOnMe($scope, $ionicLoading) };
+		$scope.centerOnMe = function () { MapService.centerOnMe($scope, $ionicLoading, $http) };
 		$scope.watchMe = function() { MapService.watchMe($scope) };
 		$scope.stopWatch = function() { MapService.stopWatch() };
 
