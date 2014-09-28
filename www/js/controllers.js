@@ -14,21 +14,6 @@ angular.module('map.controllers', [])
 		AuthService.setUserScope($rootScope, $http);
 	})
 
-	.controller('GCMController', function($scope) {
-		$scope.notificationRegister = function() {
-			successHandler = function(result) {
-				console.log('Callback Success! Result = '+result);
-			};
-
-			errorHandler = function(error) {
-				//alert(error);
-			};
-
-			var pushNotification = window.plugins.pushNotification;
-			pushNotification.register(successHandler, errorHandler,{"senderID":"errorHandler","ecb":"app.onNotificationGCM"});
-		}
-	})
-
 	.controller('FBAuthController', function($scope, $ionicLoading, AuthService, $rootScope, $http) {
 		$scope.login = function() { AuthService.login($ionicLoading, $rootScope, $http) };
 		$scope.logout = function() { AuthService.logout($ionicLoading, $rootScope) };
