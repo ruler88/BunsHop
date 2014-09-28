@@ -16,6 +16,12 @@ function onDeviceReady() {
 }
 
 function onNotificationGCM(e) {
+	var element = angular.element(document.body).controller();
+	var injector = angular.element('#ng-app').injector(['ng', 'starter']);
+	//map.controllers
+	console.log("element: " + JSON.stringify(element));
+
+
 	switch (e.event) {
 		case 'registered':
 			if (e.regid.length > 0) {
@@ -29,6 +35,7 @@ function onNotificationGCM(e) {
 			// alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt);
 			alert( JSON.stringify(e) );
 			console.log( JSON.stringify(e) );
+			injector.centerOnMe();
 			break;
 
 		case 'error':
