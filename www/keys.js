@@ -7,3 +7,8 @@ var fb_app_id = '576012412528125';
 var fb_app_secret = '393100de393472f28c9a30574e8f8d26';
 
 var comServer = 'http://buns-hop-server.herokuapp.com/';
+var bunsIcons = {
+	Kai: 'img/kai_buns.gif',
+	Sarah: 'img/sarah_buns.gif',
+	Unknown: 'img/unknown.png'
+};

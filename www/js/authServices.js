@@ -34,6 +34,7 @@ angular.module('auth.services', [])
 					console.log("logout: " + response);
 					window.localStorage.removeItem("first_name");
 					window.localStorage.removeItem("email");
+					window.localStorage.removeItem("img_path");
 
 					delete $rootScope.first_name;
 					delete $rootScope.email;
@@ -46,6 +47,7 @@ angular.module('auth.services', [])
 		this.setUserScope = function($rootScope, $http) {
 			$rootScope.first_name = window.localStorage.getItem("first_name");
 			$rootScope.email = window.localStorage.getItem("email");
+			$rootScope.img_path = window.localStorage.getItem("img_path");
 			$rootScope.isLoggedIn = (typeof $rootScope.first_name !== 'undefined');
 			$http({
 				url: comServer,
@@ -58,6 +60,7 @@ angular.module('auth.services', [])
 		this.storeUser = function(response, $rootScope, $http) {
 			window.localStorage.setItem("email", response.email);
 			window.localStorage.setItem("first_name", response.first_name);
+			window.localStorage.setItem("img_path", bunsIcons[response.first_name]);
 
 			authService.setUserScope($rootScope, $http);
 		};
