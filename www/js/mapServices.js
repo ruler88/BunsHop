@@ -1,22 +1,24 @@
-var marker;
+var marker = {};
 
 angular.module('map.services', [])
-
 	.service('MapService', function() {
-		var updateMarkerLocation = function($scope, googPosition) {
-			if (!marker) {
-				marker = new google.maps.Marker({
+		var mapService = this;
+
+		this.updateMarkerLocation = function($scope, googPosition, first_name) {
+			if ( !(first_name in marker) ) {
+				var new_marker = new google.maps.Marker({
 					position: new google.maps.LatLng(googPosition),
 					map: $scope.map,
 					title: 'Click to zoom',
 					animation: google.maps.Animation.BOUNCE,
-					icon: window.localStorage.getItem("img_path")
+					icon: bunsIcons[first_name]
 				});
+				marker[first_name] = new_marker
 			}
-			marker.setPosition(googPosition);
+			marker[first_name].setPosition(googPosition);
 		};
 
-		this.centerOnMe = function ($scope, $ionicLoading, $http) {
+		this.centerOnMe = function ($scope, $ionicLoading, $http, $rootScope) {
 			console.log("Centering");
 			if (!$scope.map) {
 				return;
@@ -38,7 +40,7 @@ angular.module('map.services', [])
 				console.log('Got pos', pos);
 				var googPosition = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
 				$scope.map.setCenter(googPosition);
-				updateMarkerLocation($scope, googPosition);
+				mapService.updateMarkerLocation($scope, googPosition, $rootScope.first_name);
 				$ionicLoading.hide();
 			}, function (error) {
 				alert('Unable to get location: ' + error.message);
@@ -74,4 +76,4 @@ angular.module('map.services', [])
 //				console.log("Stopped following");
 //			}
 //		};
-	});
+		});
