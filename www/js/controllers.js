@@ -3,6 +3,9 @@ angular.module('map.controllers', [])
 	.controller('MapController', function ($scope, $ionicLoading, $rootScope, $http, MapService, AuthService) {
 		$scope.mapCreated = function (map) { $scope.map = map };
 		$rootScope.centerOnMe = function () { MapService.centerOnMe($scope, $ionicLoading, $http, $rootScope) };
+		$rootScope.updateMarkerLocation = function(latitude, longitude, first_name) {
+			MapService.updateMarkerLocation($scope, latitude, longitude, first_name);
+		};
 //		$scope.watchMe = function() { MapService.watchMe($scope) };
 //		$scope.stopWatch = function() { MapService.stopWatch() };
 

@@ -16,11 +16,7 @@ function onDeviceReady() {
 }
 
 function onNotificationGCM(e) {
-	var element = angular.element(document.body).controller();
-	var injector = angular.element('#ng-app').injector(['ng', 'starter']);
-	//map.controllers
-	console.log("element: " + JSON.stringify(element));
-
+	var zescope = angular.element(document.body).scope();
 
 	switch (e.event) {
 		case 'registered':
@@ -35,7 +31,16 @@ function onNotificationGCM(e) {
 			// alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt);
 			alert( JSON.stringify(e) );
 			console.log( JSON.stringify(e) );
-			injector.centerOnMe();
+
+			zescope.centerOnMe();
+			if(e.payload) {
+				console.log(JSON.stringify(e.payload));
+				var message = e.payload;
+				if(message.latitude && message.longitude && message.first_name) {
+					zescope.updateMarkerLocation(message.latitude, message.longitude, message.first_name);
+				}
+			}
+
 			break;
 
 		case 'error':

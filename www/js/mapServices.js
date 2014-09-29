@@ -4,18 +4,18 @@ angular.module('map.services', [])
 	.service('MapService', function() {
 		var mapService = this;
 
-		this.updateMarkerLocation = function($scope, googPosition, first_name) {
+		this.updateMarkerLocation = function($scope, latitude, longitude, first_name) {
 			if ( !(first_name in marker) ) {
 				var new_marker = new google.maps.Marker({
-					position: new google.maps.LatLng(googPosition),
+					position: new google.maps.LatLng(latitude, longitude),
 					map: $scope.map,
 					title: 'Click to zoom',
 					animation: google.maps.Animation.BOUNCE,
 					icon: bunsIcons[first_name]
 				});
-				marker[first_name] = new_marker
+				marker[first_name] = new_marker;
 			}
-			marker[first_name].setPosition(googPosition);
+			marker[first_name].setPosition(new google.maps.LatLng(latitude, longitude));
 		};
 
 		this.centerOnMe = function ($scope, $ionicLoading, $http, $rootScope) {
@@ -29,18 +29,17 @@ angular.module('map.services', [])
 				showBackdrop: false
 			});
 
-//			$http({
-//				url: comServer,
-//				method: "GET",
-//				params: {first_name: $scope.first_name,
-// 								test: 'A'}
-//			});
-
 			navigator.geolocation.getCurrentPosition(function (pos) {
 				console.log('Got pos', pos);
-				var googPosition = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-				$scope.map.setCenter(googPosition);
-				mapService.updateMarkerLocation($scope, googPosition, $rootScope.first_name);
+				$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+				mapService.updateMarkerLocation($scope, pos.coords.latitude, pos.coords.longitude, $rootScope.first_name);
+				$http({
+					url: comServer,
+					method: "GET",
+					params: {first_name: $scope.first_name,
+						latitude: pos.coords.latitude,
+						longitude: pos.coords.longitude}
+				});
 				$ionicLoading.hide();
 			}, function (error) {
 				alert('Unable to get location: ' + error.message);
