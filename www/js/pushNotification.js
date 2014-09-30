@@ -29,10 +29,10 @@ function onNotificationGCM(e) {
 		case 'message':
 			// this is the actual push notification. its format depends on the data model from the push server
 			// alert('message = ' + e.message + ' msgcnt = ' + e.msgcnt);
-			alert( JSON.stringify(e) );
+			// alert( JSON.stringify(e) );
 			console.log( JSON.stringify(e) );
 
-			zescope.centerOnMe();
+			zescope.respondLocation();
 			if(e.payload) {
 				console.log(JSON.stringify(e.payload));
 				var message = e.payload;

@@ -12,9 +12,10 @@ angular.module('map.controllers', [])
 		AuthService.setUserScope($rootScope, $http);
 	})
 
-	.controller('MenuController', function($rootScope, $ionicSideMenuDelegate, AuthService, $http) {
+	.controller('MenuController', function($rootScope, $ionicSideMenuDelegate, AuthService, $http, MapService) {
 		$ionicSideMenuDelegate.canDragContent(false);
 		AuthService.setUserScope($rootScope, $http);
+		$rootScope.respondLocation = function() { MapService.respondLocation($rootScope, $http); }
 	})
 
 	.controller('FBAuthController', function($scope, $ionicLoading, AuthService, $rootScope, $http) {
