@@ -32,12 +32,14 @@ function onNotificationGCM(e) {
 			// alert( JSON.stringify(e) );
 			console.log( JSON.stringify(e) );
 
-			zescope.respondLocation();
 			if(e.payload) {
 				console.log(JSON.stringify(e.payload));
 				var message = e.payload;
 				if(message.latitude && message.longitude && message.first_name) {
 					zescope.updateMarkerLocation(message.latitude, message.longitude, message.first_name);
+				}
+				if(message.getLocation) {
+					zescope.respondLocation();
 				}
 			}
 

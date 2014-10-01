@@ -18,6 +18,15 @@ angular.module('map.services', [])
 			marker[first_name].setPosition(new google.maps.LatLng(latitude, longitude));
 		};
 
+		this.requestLocation = function($http) {
+			$http({
+				url: comServer,
+				method: "GET",
+				params: {first_name: $scope.first_name,
+					requestLocation: 'requestLocation'}
+			});
+		};
+
 		this.respondLocation = function ($rootScope, $http) {
 			console.log("Responding Location");
 			navigator.geolocation.getCurrentPosition(function (pos) {
@@ -33,7 +42,7 @@ angular.module('map.services', [])
 					console.log('Unable to get location in response: ' + error.message);
 				},
 				{ timeout: 10000 })
-		}
+		};
 
 		this.centerOnMe = function ($scope, $ionicLoading, $http, $rootScope) {
 			console.log("Centering");
@@ -45,6 +54,7 @@ angular.module('map.services', [])
 				template: 'Getting current location...',
 				showBackdrop: false
 			});
+			mapService.requestLocation($http);
 
 			navigator.geolocation.getCurrentPosition(function (pos) {
 				console.log('Got pos', pos);
