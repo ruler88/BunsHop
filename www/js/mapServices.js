@@ -27,7 +27,9 @@ angular.module('map.services', [])
 			clearDirections();
 
 			angular.forEach(markers, function(marker, key) {
-				var dirDisplay = new google.maps.DirectionsRenderer();
+				var dirDisplay = new google.maps.DirectionsRenderer({
+					suppressMarkers: true
+				});
 				dirDisplay.setMap($rootScope.map);
 				var request = {
 					origin: marker.getPosition(),
