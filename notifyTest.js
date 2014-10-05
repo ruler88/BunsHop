@@ -7,7 +7,6 @@ var registrationIds = [];
 message.addData('first_name', "Kai");
 message.addData('latitude', "37.7");
 message.addData('longitude', "-121");
-//message.addData('metaData', "locationMarker");
 message.timeToLive = 3000;// Duration in seconds to hold in GCM and retry before timing out. Default 4 weeks (2,419,200 seconds) if not specified.
 
 
@@ -29,5 +28,15 @@ message2.addData('longitude', "-121");
 message2.timeToLive = 3000;// Duration in seconds to hold in GCM and retry before timing out. Default 4 weeks (2,419,200 seconds) if not specified.
 
 sender.send(message2, registrationIds, 4, function (err, result) {
+	console.log(result);
+});
+
+var message3 = new gcm.Message();
+message3.addData('first_name', "Sarah");
+message3.addData('latitude', "37.8");
+message3.addData('longitude', "-121.2");
+message3.addData('metaData', "locationMarker");
+
+sender.send(message3, registrationIds, 4, function(err, result) {
 	console.log(result);
 });

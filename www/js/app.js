@@ -50,6 +50,6 @@ angular.module('starter', ['ionic', 'map.controllers', 'map.directives', 'map.se
       }
     });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/login');
+  $urlRouterProvider.otherwise('/app/map');
 });
 

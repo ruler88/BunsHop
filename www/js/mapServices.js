@@ -18,12 +18,26 @@ angular.module('map.services', [])
 				var request = {
 					origin: marker.getPosition(),
 					destination: $rootScope.locationMarker.getPosition(),
-					travelMode: google.maps.TravelMode.DRIVING
+					travelMode: google.maps.TravelMode.DRIVING,
+					durationInTraffic: true
 				};
 				directionsService.route(request, function(result, status) {
+					var legs = result.routes[0].legs;
+					var totalDistance = 0;
+					var totalDuration = 0;
+					for(var i=0; i<legs.length; i++) {
+						totalDistance += legs[i].distance.value;
+						totalDuration += legs[i].duration.value;
+					}
+					var distanceText = 28923 * 0.000621371 + " miles";
+					var durationText = totalDuration / 60 + " mins";
 					if (status == google.maps.DirectionsStatus.OK) {
 						dirDisplay.setDirections(result);
 					}
+					var infowindow = new google.maps.InfoWindow({
+						content: distanceText + " " + durationText;
+					});
+					infowindow.open($rootScope.map, marker);
 				});
 				directionsDisplay.push(dirDisplay);
 			});
