@@ -29,13 +29,13 @@ angular.module('map.services', [])
 						totalDistance += legs[i].distance.value;
 						totalDuration += legs[i].duration.value;
 					}
-					var distanceText = 28923 * 0.000621371 + " miles";
-					var durationText = totalDuration / 60 + " mins";
+					var distanceText = Math.round(totalDistance * 0.000621371) + " miles";
+					var durationText = Math.round(totalDuration / 60) + " mins";
 					if (status == google.maps.DirectionsStatus.OK) {
 						dirDisplay.setDirections(result);
 					}
 					var infowindow = new google.maps.InfoWindow({
-						content: distanceText + " " + durationText
+						content: distanceText + ",\n " + durationText
 					});
 					infowindow.open($rootScope.map, marker);
 				});
