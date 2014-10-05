@@ -64,25 +64,32 @@ angular.module('map.services', [])
 			});
 		};
 
-		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope) {
+		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup) {
 			$rootScope.map.panTo(new google.maps.LatLng(latitude, longitude));
 			if (metaData == 'locationMarker') {
-				console.log("dropping pin");
-				clearDirections();
-				if($rootScope.locationMarker) {
-					$rootScope.locationMarker.setMap(null);
-				}
-				var locationMarker = new google.maps.Marker({
-					position: new google.maps.LatLng(latitude, longitude),
-					map: $rootScope.map
+				var confirmPin = $ionicPopup.confirm({title: 'Do you want to mark this location?'});
+				confirmPin.then(function(res) {
+					if(res) {
+						console.log("dropping pin");
+						clearDirections();
+						if($rootScope.locationMarker) {
+							$rootScope.locationMarker.setMap(null);
+						}
+						var locationMarker = new google.maps.Marker({
+							position: new google.maps.LatLng(latitude, longitude),
+							map: $rootScope.map
+						});
+						var infowindow = new google.maps.InfoWindow({
+							content: first_name + " location marker"
+						});
+						infowindow.open($rootScope.map, locationMarker);
+						$rootScope.locationMarker = locationMarker;
+					}
 				});
-				var infowindow = new google.maps.InfoWindow({
-					content: first_name + " location marker"
-				});
-				infowindow.open($rootScope.map, locationMarker);
-				$rootScope.locationMarker = locationMarker;
 				return;
 			}
+
+			//not dropping new marker
 			if ( !(first_name in markers) ) {
 				var new_marker = new google.maps.Marker({
 					position: new google.maps.LatLng(latitude, longitude),
