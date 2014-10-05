@@ -18,7 +18,7 @@ angular.module('map.directives', [])
 					var map = new google.maps.Map($element[0], mapOptions);
 
 					$scope.onCreate({map: map});
-					$scope.map = map;
+					$rootScope.map = map;
 
 					// Stop the side bar from dragging when mousedown/tapdown on the map
 					google.maps.event.addDomListener($element[0], 'mousedown', function (e) {
@@ -28,13 +28,11 @@ angular.module('map.directives', [])
 
 					google.maps.event.addListener(map, 'dblclick', function(e) {
 						//drop pin when clicked
-						console.log("dropping pin");
 						var position = e.latLng;
-						var locationMarker = new google.maps.Marker({
-							position: position,
-							map: map
-						});
-						console.log(JSON.stringify(position));
+
+						//latitude, longitude, first_name, metaData
+						$rootScope.updateMarkerLocation(position.k, position.B, $rootScope.first_name, 'locationMarker');
+
 						$http({
 							url: comServer,
 							method: "GET",
@@ -43,14 +41,10 @@ angular.module('map.directives', [])
 								longitude: position.B,
 								metaData: 'locationMarker'}
 						});
-						if($rootScope.locationMarker) {
-							$rootScope.locationMarker.setMap(null);
-						}
-						$rootScope.locationMarker = locationMarker;
 					});
 
 					navigator.geolocation.getCurrentPosition(function (pos) {
-						$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+						$rootScope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 					});
 				}
 

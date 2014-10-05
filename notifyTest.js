@@ -5,7 +5,7 @@ var registrationIds = [];
 
 // Value the payload data to send...
 message.addData('first_name', "Sarah");
-message.addData('latitude', "37");
+message.addData('latitude', "37.7");
 message.addData('longitude', "-122");
 message.addData('metaData', "locationMarker");
 

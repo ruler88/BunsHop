@@ -4,7 +4,7 @@ angular.module('map.controllers', [])
 		$scope.mapCreated = function (map) { $scope.map = map };
 		$rootScope.centerOnMe = function () { MapService.centerOnMe($scope, $ionicLoading, $http, $rootScope) };
 		$rootScope.updateMarkerLocation = function(latitude, longitude, first_name, metaData) {
-			MapService.updateMarkerLocation($scope, latitude, longitude, first_name, metaData);
+			MapService.updateMarkerLocation($scope, latitude, longitude, first_name, metaData, $rootScope);
 		};
 //		$scope.watchMe = function() { MapService.watchMe($scope) };
 //		$scope.stopWatch = function() { MapService.stopWatch() };

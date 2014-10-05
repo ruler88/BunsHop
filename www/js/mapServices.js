@@ -4,22 +4,25 @@ angular.module('map.services', [])
 	.service('MapService', function() {
 		var mapService = this;
 
-		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData) {
+		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope) {
 			if (metaData == 'locationMarker') {
-				if($scope.locationMarker) {
-					$scope.locationMarker.setMap(null);
+				console.log("dropping pin");
+				if($rootScope.locationMarker) {
+					$rootScope.locationMarker.setMap(null);
 				}
 				var locationMarker = new google.maps.Marker({
 					position: new google.maps.LatLng(latitude, longitude),
-					map: $scope.map
+					map: $rootScope.map,
+					title: "YOLO"
+
 				});
-				$scope.locationMarker = locationMarker;
+				$rootScope.locationMarker = locationMarker;
 				return;
 			}
 			if ( !(first_name in marker) ) {
 				var new_marker = new google.maps.Marker({
 					position: new google.maps.LatLng(latitude, longitude),
-					map: $scope.map,
+					map: $rootScope.map,
 					title: 'Click to zoom',
 					animation: google.maps.Animation.BOUNCE,
 					icon: bunsIcons[first_name]
@@ -33,7 +36,7 @@ angular.module('map.services', [])
 			$http({
 				url: comServer,
 				method: "GET",
-				params: {first_name: $scope.first_name,
+				params: {first_name: $rootScope.first_name,
 					requestLocation: 'requestLocation'}
 			});
 		};
@@ -57,7 +60,7 @@ angular.module('map.services', [])
 
 		this.centerOnMe = function ($scope, $ionicLoading, $http, $rootScope) {
 			console.log("Centering");
-			if (!$scope.map) {
+			if (!$rootScope.map) {
 				return;
 			}
 
@@ -69,7 +72,7 @@ angular.module('map.services', [])
 
 			navigator.geolocation.getCurrentPosition(function (pos) {
 				console.log('Got pos', pos);
-				$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+					$rootScope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 				mapService.updateMarkerLocation($scope, pos.coords.latitude, pos.coords.longitude, $rootScope.first_name);
 				$http({
 					url: comServer,
