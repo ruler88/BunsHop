@@ -1,6 +1,7 @@
 var markers = {};
 var directionsDisplay = [];
 var infoWindows = [];
+var eventHandlers = [];
 
 angular.module('map.services', [])
 	.service('MapService', function() {
@@ -15,6 +16,10 @@ angular.module('map.services', [])
 				v.close();
 			});
 			infoWindows.length = 0;
+			angular.forEach(eventHandlers, function(v, k) {
+				google.maps.event.removeListener(v);
+			});
+			eventHandlers.length = 0;
 		};
 
 		this.getDirections = function($scope, $rootScope) {
@@ -48,6 +53,10 @@ angular.module('map.services', [])
 					});
 					infowindow.open($rootScope.map, marker);
 					infoWindows.push(infowindow);
+					var infoWindowHandler = google.maps.event.addListener(marker, 'click', function() {
+						infowindow.open($rootScope.map,marker);
+					});
+					eventHandlers.push(infoWindowHandler);
 				});
 				directionsDisplay.push(dirDisplay);
 			});
