@@ -4,7 +4,18 @@ angular.module('map.services', [])
 	.service('MapService', function() {
 		var mapService = this;
 
-		this.updateMarkerLocation = function($scope, latitude, longitude, first_name) {
+		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData) {
+			if (metaData == 'locationMarker') {
+				if($scope.locationMarker) {
+					$scope.locationMarker.setMap(null);
+				}
+				var locationMarker = new google.maps.Marker({
+					position: new google.maps.LatLng(latitude, longitude),
+					map: $scope.map
+				});
+				$scope.locationMarker = locationMarker;
+				return;
+			}
 			if ( !(first_name in marker) ) {
 				var new_marker = new google.maps.Marker({
 					position: new google.maps.LatLng(latitude, longitude),

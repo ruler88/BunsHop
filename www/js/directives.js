@@ -30,9 +30,8 @@ angular.module('map.directives', [])
 						//drop pin when clicked
 						console.log("dropping pin");
 						var position = e.latLng;
-						var marker = new google.maps.Marker({
+						var locationMarker = new google.maps.Marker({
 							position: position,
-						  title: "hello world",
 							map: map
 						});
 						console.log(JSON.stringify(position));
@@ -42,12 +41,12 @@ angular.module('map.directives', [])
 							params: {first_name: $rootScope.first_name,
 								latitude: position.k,
 								longitude: position.B,
-								metaData: 'marker'}
+								metaData: 'locationMarker'}
 						});
-						if($rootScope.marker) {
-							$rootScope.marker.setMap(null);
+						if($rootScope.locationMarker) {
+							$rootScope.locationMarker.setMap(null);
 						}
-						$rootScope.marker = marker;
+						$rootScope.locationMarker = locationMarker;
 					});
 
 					navigator.geolocation.getCurrentPosition(function (pos) {

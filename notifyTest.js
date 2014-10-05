@@ -4,7 +4,17 @@ var sender = new gcm.Sender('AIzaSyBSbZfBTrAH4xXdnk_1iVLRclNTWiUcWmY');
 var registrationIds = [];
 
 // Value the payload data to send...
-message.addData('message', "Test A");
+message.addData('first_name', "Sarah");
+message.addData('latitude', "37");
+message.addData('longitude', "-122");
+message.addData('metaData', "locationMarker");
+
+/*
+ first_name: $rootScope.first_name,
+ latitude: position.k,
+ longitude: position.B,
+ metaData: 'locationMarker'}
+ */
 message.timeToLive = 3000;// Duration in seconds to hold in GCM and retry before timing out. Default 4 weeks (2,419,200 seconds) if not specified.
 
 // At least one reg id required
