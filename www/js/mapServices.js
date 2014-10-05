@@ -1,16 +1,25 @@
 var markers = {};
 var directionsDisplay = [];
+var infoWindows = [];
 
 angular.module('map.services', [])
 	.service('MapService', function() {
 		var mapService = this;
 
-		this.getDirections = function($scope, $rootScope) {
-			var directionsService = new google.maps.DirectionsService();
+		var clearDirections = function() {
 			angular.forEach(directionsDisplay, function(v, k) {
 				v.setMap(null);
 			});
 			directionsDisplay.length = 0;
+			angular.forEach(infoWindows, function(v, k) {
+				v.close();
+			});
+			infoWindows.length = 0;
+		};
+
+		this.getDirections = function($scope, $rootScope) {
+			var directionsService = new google.maps.DirectionsService();
+			clearDirections();
 
 			angular.forEach(markers, function(marker, key) {
 				var dirDisplay = new google.maps.DirectionsRenderer();
@@ -38,6 +47,7 @@ angular.module('map.services', [])
 						content: distanceText + ",\n " + durationText
 					});
 					infowindow.open($rootScope.map, marker);
+					infoWindows.push(infowindow);
 				});
 				directionsDisplay.push(dirDisplay);
 			});
@@ -47,6 +57,7 @@ angular.module('map.services', [])
 			$rootScope.map.panTo(new google.maps.LatLng(latitude, longitude));
 			if (metaData == 'locationMarker') {
 				console.log("dropping pin");
+				clearDirections();
 				if($rootScope.locationMarker) {
 					$rootScope.locationMarker.setMap(null);
 				}
