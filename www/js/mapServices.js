@@ -35,7 +35,7 @@ angular.module('map.services', [])
 						dirDisplay.setDirections(result);
 					}
 					var infowindow = new google.maps.InfoWindow({
-						content: distanceText + " " + durationText;
+						content: distanceText + " " + durationText
 					});
 					infowindow.open($rootScope.map, marker);
 				});
