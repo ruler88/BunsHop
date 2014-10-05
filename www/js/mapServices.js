@@ -122,7 +122,7 @@ angular.module('map.services', [])
 					$http({
 						url: comServer,
 						method: "GET",
-						params: {first_name: $scope.first_name,
+						params: {first_name: $rootScope.first_name,
 							latitude: pos.coords.latitude,
 							longitude: pos.coords.longitude}
 					});
