@@ -102,6 +102,7 @@ angular.module('map.services', [])
 				});
 				markers[first_name] = new_marker;
 			}
+			markers[first_name].setMap($rootScope.map);
 			markers[first_name].setPosition(new google.maps.LatLng(latitude, longitude));
 		};
 
