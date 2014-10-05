@@ -142,6 +142,15 @@ angular.module('map.services', [])
 			{ timeout: 10000 });
 		};
 
+		this.zoom = function($rootScope) {
+			var bounds = new google.maps.LatLngBounds();
+			angular.forEach(markers, function(marker, key) {
+				bounds.extend(marker.getPosition());
+			});
+			bounds.extend($rootScope.locationMarker.getPosition());
+			$rootScope.map.fitBounds(bounds);
+		};
+
 
 //		this.watchMe = function($scope) {
 //			function onSuccess(pos) {
