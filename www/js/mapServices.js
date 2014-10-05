@@ -74,11 +74,11 @@ angular.module('map.services', [])
 			markers[first_name].setPosition(new google.maps.LatLng(latitude, longitude));
 		};
 
-		this.requestLocation = function($http) {
+		this.requestLocation = function($http, first_name) {
 			$http({
 				url: comServer,
 				method: "GET",
-				params: {first_name: $rootScope.first_name,
+				params: {first_name: first_name,
 					requestLocation: 'requestLocation'}
 			});
 		};
@@ -110,12 +110,12 @@ angular.module('map.services', [])
 				template: 'Getting current location...',
 				showBackdrop: false
 			});
-			mapService.requestLocation($http);
+			mapService.requestLocation($http, $rootScope.first_name);
 
 			navigator.geolocation.getCurrentPosition(function (pos) {
 				console.log('Got pos', pos);
 					$rootScope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-				mapService.updateMarkerLocation($scope, pos.coords.latitude, pos.coords.longitude, $rootScope.first_name);
+				mapService.updateMarkerLocation($scope, pos.coords.latitude, pos.coords.longitude, $rootScope.first_name, null, $rootScope);
 				$http({
 					url: comServer,
 					method: "GET",
