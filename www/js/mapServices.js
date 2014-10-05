@@ -62,6 +62,8 @@ angular.module('map.services', [])
 				});
 				directionsDisplay.push(dirDisplay);
 			});
+			var trafficLayer = new google.maps.TrafficLayer();
+			trafficLayer.setMap($rootScope.map);
 		};
 
 		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup) {
