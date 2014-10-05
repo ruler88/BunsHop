@@ -1,10 +1,36 @@
-var marker = {};
+var markers = {};
+var directionsDisplay = [];
 
 angular.module('map.services', [])
 	.service('MapService', function() {
 		var mapService = this;
 
+		this.getDirections = function($scope, $rootScope) {
+			var directionsService = new google.maps.DirectionsService();
+			angular.forEach(directionsDisplay, function(v, k) {
+				v.setMap(null);
+			});
+			directionsDisplay.length = 0;
+
+			angular.forEach(markers, function(marker, key) {
+				var dirDisplay = new google.maps.DirectionsRenderer();
+				dirDisplay.setMap($rootScope.map);
+				var request = {
+					origin: marker.getPosition(),
+					destination: $rootScope.locationMarker.getPosition(),
+					travelMode: google.maps.TravelMode.DRIVING
+				};
+				directionsService.route(request, function(result, status) {
+					if (status == google.maps.DirectionsStatus.OK) {
+						dirDisplay.setDirections(result);
+					}
+				});
+				directionsDisplay.push(dirDisplay);
+			});
+		};
+
 		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope) {
+			$rootScope.map.panTo(new google.maps.LatLng(latitude, longitude));
 			if (metaData == 'locationMarker') {
 				console.log("dropping pin");
 				if($rootScope.locationMarker) {
@@ -18,11 +44,10 @@ angular.module('map.services', [])
 					content: first_name + " location marker"
 				});
 				infowindow.open($rootScope.map, locationMarker);
-				$rootScope.map.panTo(new google.maps.LatLng(latitude, longitude));
 				$rootScope.locationMarker = locationMarker;
 				return;
 			}
-			if ( !(first_name in marker) ) {
+			if ( !(first_name in markers) ) {
 				var new_marker = new google.maps.Marker({
 					position: new google.maps.LatLng(latitude, longitude),
 					map: $rootScope.map,
@@ -30,9 +55,9 @@ angular.module('map.services', [])
 					animation: google.maps.Animation.BOUNCE,
 					icon: bunsIcons[first_name]
 				});
-				marker[first_name] = new_marker;
+				markers[first_name] = new_marker;
 			}
-			marker[first_name].setPosition(new google.maps.LatLng(latitude, longitude));
+			markers[first_name].setPosition(new google.maps.LatLng(latitude, longitude));
 		};
 
 		this.requestLocation = function($http) {

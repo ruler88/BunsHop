@@ -6,6 +6,7 @@ angular.module('map.controllers', [])
 		$rootScope.updateMarkerLocation = function(latitude, longitude, first_name, metaData) {
 			MapService.updateMarkerLocation($scope, latitude, longitude, first_name, metaData, $rootScope);
 		};
+		$rootScope.getDirections = function() {MapService.getDirections($scope, $rootScope)};
 //		$scope.watchMe = function() { MapService.watchMe($scope) };
 //		$scope.stopWatch = function() { MapService.stopWatch() };
 
