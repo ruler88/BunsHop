@@ -16,6 +16,7 @@ function onDeviceReady() {
 }
 
 function onNotificationGCM(e) {
+	console.log("notification message received: \n" + e);
 	var zescope = angular.element(document.body).scope();
 
 	switch (e.event) {
