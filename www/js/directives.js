@@ -46,6 +46,46 @@ angular.module('map.directives', [])
 					navigator.geolocation.getCurrentPosition(function (pos) {
 						$rootScope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 					});
+
+					var yourAjaxCallback = function(response) {
+						////
+						// IMPORTANT:  You must execute the #finish method here to inform the native plugin that you're finished,
+						//  and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
+						// IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
+						//
+						//
+						bgGeo.finish();
+					};
+
+					var callbackFn = function(location) {
+						console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
+						// Do your HTTP request here to POST location to your server.
+						//
+						yourAjaxCallback();
+					};
+
+					var failureFn = function(error) {
+						console.log('BackgroundGeoLocation error ' + error.toString());
+					};
+
+					var bgGeo = window.plugins.backgroundGeoLocation;
+					bgGeo.configure(callbackFn, failureFn, {
+						url: 'comServer', // <-- Android ONLY:  your server url to send locations to
+						params: {
+							first_name: 'user_secret_auth_token',    //  <-- Android ONLY:  HTTP POST params sent to your server when persisting locations.
+							foo: 'bar'                              //  <-- Android ONLY:  HTTP POST params sent to your server when persisting locations.
+						},
+						desiredAccuracy: 10,
+						stationaryRadius: 20,
+						distanceFilter: 30,
+						notificationTitle: 'Background tracking', // <-- android only, customize the title of the notification
+						notificationText: 'ENABLED', // <-- android only, customize the text of the notification
+						activityType: 'AutomotiveNavigation',
+						debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+						stopOnTerminate: false // <-- enable this to clear background location settings when the app terminates
+					});
+
+					bgGeo.start();
 				}
 
 				if (document.readyState === "complete") {
