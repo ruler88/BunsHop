@@ -39,9 +39,6 @@ function onNotificationGCM(e) {
 				if(message.latitude && message.longitude && message.first_name) {
 					zescope.updateMarkerLocation(message.latitude, message.longitude, message.first_name, message.metaData);
 				}
-				if(message.getLocation) {
-					zescope.respondLocation();
-				}
 				if(message.backgroundAjaxGelocation) {
 					zescope.backgroundAjaxGelocation();
 				}

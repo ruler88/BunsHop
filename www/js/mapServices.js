@@ -116,23 +116,6 @@ angular.module('map.services', [])
 			});
 		};
 
-		this.respondLocation = function ($rootScope, $http) {
-			console.log("Responding Location");
-			navigator.geolocation.getCurrentPosition(function (pos) {
-					console.log('Got pos', pos);
-					$http({
-						url: comServer,
-						method: "GET",
-						params: {first_name: $rootScope.first_name,
-							latitude: pos.coords.latitude,
-							longitude: pos.coords.longitude}
-					});
-				}, function (error) {
-					console.log('Unable to get location in response: ' + error.message);
-				},
-				{ timeout: 10000 })
-		};
-
 		this.centerOnMe = function ($scope, $ionicLoading, $http, $rootScope) {
 			console.log("Centering");
 			if (!$rootScope.map) {

@@ -17,7 +17,6 @@ angular.module('map.controllers', [])
 	.controller('MenuController', function($rootScope, $ionicSideMenuDelegate, AuthService, $http, MapService) {
 		$ionicSideMenuDelegate.canDragContent(false);
 		AuthService.setUserScope($rootScope, $http);
-		$rootScope.respondLocation = function() { MapService.respondLocation($rootScope, $http); }
 	})
 
 	.controller('FBAuthController', function($scope, $ionicLoading, AuthService, $rootScope, $http) {
