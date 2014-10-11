@@ -47,13 +47,14 @@ angular.module('map.directives', [])
 						$rootScope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
 					});
 
-					var yourAjaxCallback = function(response) {
+					$rootScope.backgroundAjaxGelocation = function(response) {
 						////
 						// IMPORTANT:  You must execute the #finish method here to inform the native plugin that you're finished,
 						//  and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
 						// IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
 						//
 						//
+						console.log("NOTICE: Ajax background geolocation called");
 						bgGeo.finish();
 					};
 
@@ -61,7 +62,7 @@ angular.module('map.directives', [])
 						console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
 						// Do your HTTP request here to POST location to your server.
 						//
-						yourAjaxCallback();
+						$rootScope.backgroundAjaxGelocation();
 					};
 
 					var failureFn = function(error) {
@@ -72,7 +73,7 @@ angular.module('map.directives', [])
 					bgGeo.configure(callbackFn, failureFn, {
 						url: comServer, // <-- Android ONLY:  your server url to send locations to
 						params: {
-							first_name: 'user_secret_auth_token',    //  <-- Android ONLY:  HTTP POST params sent to your server when persisting locations.
+							first_name: $rootScope.first_name,    //  <-- Android ONLY:  HTTP POST params sent to your server when persisting locations.
 							foo: 'bar'                              //  <-- Android ONLY:  HTTP POST params sent to your server when persisting locations.
 						},
 						desiredAccuracy: 10,

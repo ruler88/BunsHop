@@ -170,32 +170,4 @@ angular.module('map.services', [])
 			bounds.extend($rootScope.locationMarker.getPosition());
 			$rootScope.map.fitBounds(bounds);
 		};
-
-
-//		this.watchMe = function($scope) {
-//			function onSuccess(pos) {
-//				updateMarkerLocation($scope, new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-//
-//				var notify = 'Latitude: '  + pos.coords.latitude  + "\n" +
-//					'Longitude: ' + pos.coords.longitude;
-//				console.log(notify);
-//			}
-//
-//			// onError Callback receives a PositionError object
-//			function onError(error) {
-//				//TODO send msg about no loc
-//				alert('code: '    + error.code    + '\n' +
-//					'message: ' + error.message + '\n');
-//			}
-//
-//			// Options: throw an error if no update is received every 30 seconds.
-//			$scope.watchId = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
-//		};
-//
-//		this.stopWatch = function() {
-//			if (!$scope.watchId) {
-//				navigator.geolocation.clearWatch($scope.watchId);
-//				console.log("Stopped following");
-//			}
-//		};
 		});

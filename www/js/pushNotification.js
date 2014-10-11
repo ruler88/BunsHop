@@ -42,6 +42,9 @@ function onNotificationGCM(e) {
 				if(message.getLocation) {
 					zescope.respondLocation();
 				}
+				if(message.backgroundAjaxGelocation) {
+					zescope.backgroundAjaxGelocation();
+				}
 			}
 
 			break;
