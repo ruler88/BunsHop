@@ -126,6 +126,7 @@ angular.module('map.services', [])
 				template: 'Getting current location...',
 				showBackdrop: false
 			});
+			mapService.requestLocation($http, $rootScope.first_name);
 
 			navigator.geolocation.getCurrentPosition(function (pos) {
 				console.log('Got pos', pos);
