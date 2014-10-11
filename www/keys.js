@@ -12,3 +12,5 @@ var bunsIcons = {
 	Sarah: 'img/sarah_buns.gif',
 	Unknown: 'img/unknown.png'
 };
+
+var carrot = 'img/carrot.png';

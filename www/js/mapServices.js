@@ -79,7 +79,8 @@ angular.module('map.services', [])
 						}
 						var locationMarker = new google.maps.Marker({
 							position: new google.maps.LatLng(latitude, longitude),
-							map: $rootScope.map
+							map: $rootScope.map,
+							icon: carrot
 						});
 						var infowindow = new google.maps.InfoWindow({
 							content: first_name + " location marker"
