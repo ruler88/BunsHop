@@ -70,7 +70,7 @@ angular.module('map.directives', [])
 
 					var bgGeo = window.plugins.backgroundGeoLocation;
 					bgGeo.configure(callbackFn, failureFn, {
-						url: 'comServer', // <-- Android ONLY:  your server url to send locations to
+						url: comServer, // <-- Android ONLY:  your server url to send locations to
 						params: {
 							first_name: 'user_secret_auth_token',    //  <-- Android ONLY:  HTTP POST params sent to your server when persisting locations.
 							foo: 'bar'                              //  <-- Android ONLY:  HTTP POST params sent to your server when persisting locations.
