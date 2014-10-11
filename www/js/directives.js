@@ -48,20 +48,12 @@ angular.module('map.directives', [])
 					});
 
 					$rootScope.backgroundAjaxGelocation = function(response) {
-						////
-						// IMPORTANT:  You must execute the #finish method here to inform the native plugin that you're finished,
-						//  and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
-						// IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
-						//
-						//
 						console.log("NOTICE: Ajax background geolocation called");
 						bgGeo.finish();
 					};
 
 					var callbackFn = function(location) {
 						console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
-						// Do your HTTP request here to POST location to your server.
-						//
 						$rootScope.backgroundAjaxGelocation();
 					};
 
@@ -79,10 +71,10 @@ angular.module('map.directives', [])
 						desiredAccuracy: 10,
 						stationaryRadius: 20,
 						distanceFilter: 30,
-						notificationTitle: 'Background tracking', // <-- android only, customize the title of the notification
-						notificationText: 'ENABLED', // <-- android only, customize the text of the notification
+						notificationTitle: 'Buns is hopping', // <-- android only, customize the title of the notification
+						notificationText: '<3', // <-- android only, customize the text of the notification
 						activityType: 'AutomotiveNavigation',
-						debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+						debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
 						stopOnTerminate: false // <-- enable this to clear background location settings when the app terminates
 					});
 
