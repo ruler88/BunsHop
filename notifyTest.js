@@ -31,20 +31,20 @@ message.timeToLive = 3000;// Duration in seconds to hold in GCM and retry before
 //	console.log(result);
 //});
 //
-//var message3 = new gcm.Message();
-//message3.addData('first_name', "Sarah");
-//message3.addData('latitude', "37.8");
-//message3.addData('longitude', "-121.2");
-//message3.addData('metaData', "locationMarker");
-//
-//sender.send(message3, registrationIds, 4, function(err, result) {
-//	console.log(result);
-//});
+var message3 = new gcm.Message();
+message3.addData('first_name', "Sarah");
+message3.addData('latitude', "37.8");
+message3.addData('longitude', "-121.2");
+message3.addData('metaData', "locationMarker");
 
-var message4 = new gcm.Message();
-message4.addData('first_name', "Sarah");
-message4.addData('getLocation', 'getLocation');
-
-sender.send(message4, registrationIds, 4, function(err, result) {
+sender.send(message3, registrationIds, 4, function(err, result) {
 	console.log(result);
 });
+
+//var message4 = new gcm.Message();
+//message4.addData('first_name', "Sarah");
+//message4.addData('getLocation', 'getLocation');
+//
+//sender.send(message4, registrationIds, 4, function(err, result) {
+//	console.log(result);
+//});

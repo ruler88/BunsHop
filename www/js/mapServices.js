@@ -69,7 +69,6 @@ angular.module('map.services', [])
 		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup) {
 			$rootScope.map.panTo(new google.maps.LatLng(latitude, longitude));
 			if (metaData == 'locationMarker') {
-				var confirmPin = $ionicPopup.confirm({title: 'Do you want to mark this location?'});
 				confirmPin.then(function(res) {
 					if(res) {
 						console.log("dropping pin");
