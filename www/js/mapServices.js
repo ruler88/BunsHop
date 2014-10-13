@@ -139,6 +139,7 @@ angular.module('map.services', [])
 						longitude: pos.coords.longitude}
 				});
 				$ionicLoading.hide();
+				mapService.zoom($rootScope);
 			}, function (error) {
 				alert('Unable to get location: ' + error.message);
 				$ionicLoading.hide();
