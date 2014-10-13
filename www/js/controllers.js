@@ -5,7 +5,7 @@ angular.module('map.controllers', [])
 		$scope.zoom = function() { MapService.zoom($rootScope) };
 		$rootScope.centerOnMe = function () { MapService.centerOnMe($scope, $ionicLoading, $http, $rootScope) };
 		$rootScope.updateMarkerLocation = function(latitude, longitude, first_name, metaData) {
-			MapService.updateMarkerLocation($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup);
+			MapService.updateMarkerLocation($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup, $http);
 		};
 		$rootScope.getDirections = function() {MapService.getDirections($scope, $rootScope)};
 //		$scope.watchMe = function() { MapService.watchMe($scope) };

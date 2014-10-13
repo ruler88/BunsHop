@@ -66,28 +66,35 @@ angular.module('map.services', [])
 			trafficLayer.setMap($rootScope.map);
 		};
 
-		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup) {
+		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup, $http) {
 			$rootScope.map.panTo(new google.maps.LatLng(latitude, longitude));
 			if (metaData == 'locationMarker') {
-				confirmPin.then(function(res) {
-					if(res) {
-						console.log("dropping pin");
-						clearDirections();
-						if($rootScope.locationMarker) {
-							$rootScope.locationMarker.setMap(null);
-						}
-						var locationMarker = new google.maps.Marker({
-							position: new google.maps.LatLng(latitude, longitude),
-							map: $rootScope.map,
-							icon: carrot
-						});
-						var infowindow = new google.maps.InfoWindow({
-							content: first_name + " location marker"
-						});
-						infowindow.open($rootScope.map, locationMarker);
-						$rootScope.locationMarker = locationMarker;
-					}
+				console.log("dropping pin");
+				clearDirections();
+				if($rootScope.locationMarker) {
+					$rootScope.locationMarker.setMap(null);
+				}
+				var locationMarker = new google.maps.Marker({
+					position: new google.maps.LatLng(latitude, longitude),
+					map: $rootScope.map,
+					icon: carrot
 				});
+				google.maps.event.addListener(locationMarker, 'dblclick', function() {
+					clearDirections();
+					$rootScope.locationMarker.setMap(null);
+					$rootScope.locationMarker = null;
+					$http({
+						url: comServer,
+						method: "GET",
+						params: {first_name: first_name,
+							removeMarker: 'removeMarker'}
+					});
+				});
+				var infowindow = new google.maps.InfoWindow({
+					content: first_name + " location marker"
+				});
+				infowindow.open($rootScope.map, locationMarker);
+				$rootScope.locationMarker = locationMarker;
 				return;
 			}
 
@@ -130,7 +137,7 @@ angular.module('map.services', [])
 			navigator.geolocation.getCurrentPosition(function (pos) {
 				console.log('Got pos', pos);
 					$rootScope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-				mapService.updateMarkerLocation($scope, pos.coords.latitude, pos.coords.longitude, $rootScope.first_name, null, $rootScope);
+				mapService.updateMarkerLocation($scope, pos.coords.latitude, pos.coords.longitude, $rootScope.first_name, null, $rootScope, $http);
 				$http({
 					url: comServer,
 					method: "GET",
@@ -152,7 +159,9 @@ angular.module('map.services', [])
 			angular.forEach(markers, function(marker, key) {
 				bounds.extend(marker.getPosition());
 			});
-			bounds.extend($rootScope.locationMarker.getPosition());
+			if($rootScope.locationMarker) {
+				bounds.extend($rootScope.locationMarker.getPosition());
+			}
 			$rootScope.map.fitBounds(bounds);
 		};
 		});
