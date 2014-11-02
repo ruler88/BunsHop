@@ -164,4 +164,19 @@ angular.module('map.services', [])
 			}
 			$rootScope.map.fitBounds(bounds);
 		};
-		});
+
+		this.assignPopover = function($scope) {
+			//popover displays last seen time
+			$scope.openPopover = function($event) {
+				$scope.popover.show($event);
+			};
+			$scope.closePopover = function() {
+				$scope.popover.hide();
+			};
+			//Cleanup the popover when we're done with it!
+			$scope.$on('$destroy', function() {
+				$scope.popover.remove();
+			});
+		}
+
+	});
