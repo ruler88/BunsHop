@@ -31,7 +31,7 @@ angular.module('map.directives', [])
 						var position = e.latLng;
 
 						//latitude, longitude, first_name, metaData
-						$rootScope.updateMarkerLocation(position.k, position.B, $rootScope.first_name, 'locationMarker');
+						$rootScope.updateMarkerLocation(position.k, position.B, $rootScope.first_name, 'locationMarker', new Date());
 
 						$http({
 							url: comServer,

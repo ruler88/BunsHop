@@ -22,10 +22,20 @@
 	<script id="last-seen-popover.html" type="text/ng-template">
 		<ion-popover-view>
 			<ion-header-bar>
-				<h1 class="title">My Popover Title</h1>
+				<h1 class="title">Update Time</h1>
 			</ion-header-bar>
+
 			<ion-content>
-				Hello!
+				<div class="card">
+					<div class="item item-divider">
+						{{clock | date:'MMM-dd hh:mm:ss a'}}
+					</div>
+				</div>
+
+				<ion-item ng-repeat='(key, value) in lastSeenMap'>
+					<h2>{{key}}</h2>
+					<p>{{value | date:'MMM-dd hh:mm:ss a'}}</p>
+				</ion-item>
 			</ion-content>
 		</ion-popover-view>
 	</script>

@@ -66,7 +66,7 @@ angular.module('map.services', [])
 			trafficLayer.setMap($rootScope.map);
 		};
 
-		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup, $http) {
+		this.updateMarkerLocation = function($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup, $http, time) {
 			$rootScope.map.panTo(new google.maps.LatLng(latitude, longitude));
 			if (metaData == 'locationMarker') {
 				console.log("dropping pin");
@@ -95,6 +95,7 @@ angular.module('map.services', [])
 				});
 				infowindow.open($rootScope.map, locationMarker);
 				$rootScope.locationMarker = locationMarker;
+				$scope.lastSeenMap.carrot = time;
 				return;
 			}
 
@@ -111,6 +112,9 @@ angular.module('map.services', [])
 			}
 			markers[first_name].setMap($rootScope.map);
 			markers[first_name].setPosition(new google.maps.LatLng(latitude, longitude));
+			if(time) {
+				$scope.lastSeenMap[first_name] = time;
+			}
 		};
 
 		this.requestLocation = function($http, first_name) {
@@ -137,7 +141,7 @@ angular.module('map.services', [])
 			navigator.geolocation.getCurrentPosition(function (pos) {
 				console.log('Got pos', pos);
 					$rootScope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-				mapService.updateMarkerLocation($scope, pos.coords.latitude, pos.coords.longitude, $rootScope.first_name, null, $rootScope, $http);
+				mapService.updateMarkerLocation($scope, pos.coords.latitude, pos.coords.longitude, $rootScope.first_name, null, $rootScope, $http, new Date());
 				$http({
 					url: comServer,
 					method: "GET",
@@ -177,6 +181,20 @@ angular.module('map.services', [])
 			$scope.$on('$destroy', function() {
 				$scope.popover.remove();
 			});
-		}
 
+			$scope.lastSeenMap = {};
+		};
+
+		this.setClock = function($scope, $timeout) {
+			$scope.clock = "loading clock..."; // initialise the time variable
+			$scope.tickInterval = 1000; //ms
+
+			var tick = function () {
+				$scope.clock = Date.now(); // get the current time
+				$timeout(tick, $scope.tickInterval); // reset the timer
+			};
+
+			// Start the timer
+			$timeout(tick, $scope.tickInterval);
+		}
 	});

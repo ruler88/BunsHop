@@ -1,11 +1,11 @@
 angular.module('map.controllers', [])
 
-	.controller('MapController', function ($scope, $ionicLoading, $rootScope, $http, MapService, AuthService, $ionicPopup, $ionicPopover) {
+	.controller('MapController', function ($scope, $ionicLoading, $rootScope, $http, MapService, AuthService, $ionicPopup, $ionicPopover, $timeout) {
 		$scope.mapCreated = function (map) { $scope.map = map };
 		$scope.zoom = function() { MapService.zoom($rootScope) };
 		$rootScope.centerOnMe = function () { MapService.centerOnMe($scope, $ionicLoading, $http, $rootScope) };
-		$rootScope.updateMarkerLocation = function(latitude, longitude, first_name, metaData) {
-			MapService.updateMarkerLocation($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup, $http);
+		$rootScope.updateMarkerLocation = function(latitude, longitude, first_name, metaData, time) {
+			MapService.updateMarkerLocation($scope, latitude, longitude, first_name, metaData, $rootScope, $ionicPopup, $http, time);
 		};
 		$rootScope.getDirections = function() {MapService.getDirections($scope, $rootScope)};
 
@@ -19,6 +19,7 @@ angular.module('map.controllers', [])
 			$scope.popover = popover;
 		});
 
+		MapService.setClock($scope, $timeout);	//clock
 		MapService.assignPopover($scope);
 	})
 

@@ -37,7 +37,7 @@ function onNotificationGCM(e) {
 				console.log(JSON.stringify(e.payload));
 				var message = e.payload;
 				if(message.latitude && message.longitude && message.first_name) {
-					zescope.updateMarkerLocation(message.latitude, message.longitude, message.first_name, message.metaData);
+					zescope.updateMarkerLocation(message.latitude, message.longitude, message.first_name, message.metaData, message.time);
 				}
 				if(message.backgroundAjaxGelocation) {
 					zescope.backgroundAjaxGelocation();
