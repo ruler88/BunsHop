@@ -29,9 +29,10 @@ angular.module('map.directives', [])
 					google.maps.event.addListener(map, 'dblclick', function(e) {
 						//drop pin when clicked
 						var position = e.latLng;
+						console.log('dblclick registered at ' + JSON.stringify(position));
 
 						//latitude, longitude, first_name, metaData
-						$rootScope.updateMarkerLocation(position.k, position.B, $rootScope.first_name, 'locationMarker', new Date());
+						$rootScope.updateMarkerLocation(position.k, position.D, $rootScope.first_name, 'locationMarker', new Date());
 
 						$http({
 							url: comServer,
